@@ -1,18 +1,41 @@
 version: '2'
-
-volumes:
-    logs:
-        driver: local
-
 services:
-    slim:
-        image: php:7-alpine
-        working_dir: /var/www
-        command: php -S 0.0.0.0:8080 -t public
-        environment:
-            docker: "true"
-        ports:
-            - 8080:8080
+    web:
+        build: .
+        container_name: creditos
+        hostname: creditos
+        depends_on:
+        - mysql
         volumes:
-            - .:/var/www
-            - logs:/var/www/logs
+        - ./:/var/www/html/:rw
+        - ./logs:/var/www/html/logs
+
+    mysql:
+        image: mysql/mysql-server:5.6
+        container_name: creditos-mysql
+        hostname: creditos-mysql
+        volumes:
+        - ./database:/docker-entrypoint-initdb.d
+        - /etc/localtime:/etc/localtime
+        environment:
+        - MYSQL_ROOT_PASSWORD=201125
+        - MYSQL_DATABASE=creditos
+        - MYSQL_USER=creditos
+        - MYSQL_PASSWORD=creditos
+
+    composer:
+        image: composer:1.5
+        network_mode: host
+        container_name: creditos-composer
+        user: "${UID}:${UID}"
+        command: install --prefer-dist --optimize-autoloader --ignore-platform-reqs
+        volumes:
+        - ./:/app
+        - ${HOME}:${HOME}
+        - /etc/passwd:/etc/passwd:ro
+        - /etc/group:/etc/group:ro
+
+networks:
+    default:
+        external:
+            name: jose

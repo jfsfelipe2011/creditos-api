@@ -14,10 +14,10 @@ return [
         // Database settings
         'db' => [
             'driver' => 'mysql',
-            'host' => 'localhost',
+            'host' => 'creditos-mysql',
             'database' => 'creditos',
-            'username' => 'root',
-            'password' => '',
+            'username' => 'creditos',
+            'password' => 'creditos',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
