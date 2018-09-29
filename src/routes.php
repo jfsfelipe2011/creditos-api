@@ -7,4 +7,8 @@ use App\ResourceRouter\Resource;
 // Routes
 Resource::createBaseRoute('users', $app);
 
+$app->post('/auth', 'App\Controllers\AuthController:auth');
+
+$app->get('/clients', 'App\Controllers\ClientsController:index');
+
 

@@ -21,6 +21,11 @@ return [
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-        ]
+        ],
+
+        // Token settings
+        "jwt" => [
+            'secret' => '3Rz7znk032mmtL7oLcP5YvbzG7jwqk0Wjr4U9W20'
+        ],
     ],
 ];

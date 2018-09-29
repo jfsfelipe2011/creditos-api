@@ -13,4 +13,8 @@ interface RepositoryInterface
 	public function delete($id);
 
 	public function find($id);
+
+	public function findByField($field, $value);
+
+	public function findOneByField($field, $value);
 }

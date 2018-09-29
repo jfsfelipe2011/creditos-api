@@ -11,4 +11,9 @@ class User extends Model
 		'email',
 		'password'
 	];
+
+	public function clients()
+	{
+		return $this->hasMany(Client::class);
+	}
 }

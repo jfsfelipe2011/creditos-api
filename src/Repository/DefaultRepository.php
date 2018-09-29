@@ -43,4 +43,14 @@ class DefaultRepository implements RepositoryInterface
 	{
 		return $this->model->findOrFail($id);
 	}
+
+	public function findByField($field, $value)
+	{
+		return $this->model->where($field, '=', $value)->get();
+	}
+
+	public function findOneByField($field, $value)
+	{
+		return $this->model->where($field, '=', $value)->firstOrFail();
+	}
 }
