@@ -6,8 +6,9 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
+            'name' => 'api-app',
+            'pathApp' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
+            'pathError' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/error.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
 
