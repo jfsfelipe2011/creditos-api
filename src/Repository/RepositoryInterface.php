@@ -8,13 +8,15 @@ interface RepositoryInterface
 
 	public function create($data);
 
-	public function update($id, $data);
+	public function update($search, $data);
 
-	public function delete($id);
+	public function delete($search);
 
 	public function find($id);
 
 	public function findByField($field, $value);
 
 	public function findOneByField($field, $value);
+
+	public function findOneByFields($search);
 }
