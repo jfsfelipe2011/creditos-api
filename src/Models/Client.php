@@ -18,4 +18,14 @@ class Client extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
+	public function extract()
+    {
+        return $this->hasMany(Extract::class)->orderBy('date', 'asc');
+    }
+
+    public function credit()
+    {
+        return $this->hasMany(Credit::class)->orderBy('validity', 'asc');
+    }
 }
