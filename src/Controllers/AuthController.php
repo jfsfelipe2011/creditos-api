@@ -20,14 +20,22 @@ class AuthController extends Controller
 			}
 
 		} catch (ModelNotFoundException $e) {
-			return $this->response->withJson(['erro' => true, 'message' => 'Usuário não encontrado.'], 404)
+			$email = isset($data['email']) ? $data['email'] : '[ñ informado]';
+
+			$this->errorLogger->error("Usuário de email {$email} não encontrado na base de dados");
+
+			return $this->response->withJson('Usuário não encontrado', 404)
 							->withHeader('Content-type', 'application/json');
 		} catch (Exception $e) {
-			return $this->response->withJson(['erro' => true, 'message' => $e->getMessage()], 404)
+			$this->errorLogger->error("Usuário informou uma senha que não bate com a cadastrada");
+
+			return $this->response->withJson($e->getMessage(), 404)
 							->withHeader('Content-type', 'application/json');
 		}
 
 		$token = JWT::encode(['id' => $user->id, 'email' => $user->email], $this->settings['jwt']['secret'], "HS256");
+
+		$this->logger->info("Token gerado com sucesso");
 
 		return $response->withJson(['token' => $token], 201)
 					->withHeader('Content-type', 'application/json');
