@@ -142,4 +142,75 @@ class ClientsController extends Controller
 
 		return $response->withJson($client, 200);
 	}
+
+	public function saldo($request, $response, $args)
+    {
+    	$auth = $request->getAttribute('decoded_token_data');
+
+        try {   	
+        	$client = $this->clientRepository->findOneByFields([
+				'id' 		=> $args['id'],
+				'user_id'   => $auth['id']
+			]);
+        } catch (ModelNotFoundException $e) {
+            $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
+
+			return $response->withJson('Cliente não encontrado', 404);
+        }
+
+        $this->logger->info('Carregado saldo do Cliente de id '. $client->id .' com sucesso', [
+            	'client' => $client,
+            	'saldo'  => $client->getSaldo()
+            ]);
+
+        return $response->withJson($client->getSaldo(), 200);
+    }
+
+    public function extrato($request, $response, $args)
+    {
+    	$auth = $request->getAttribute('decoded_token_data');
+
+        try {   	
+        	$client = $this->clientRepository->findOneByFields([
+				'id' 		=> $args['id'],
+				'user_id'   => $auth['id']
+			]);
+
+        } catch (ModelNotFoundException $e) {
+            $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
+
+			return $response->withJson('Cliente não encontrado', 404);
+        }
+
+        $this->logger->info('Carregado extrato do Cliente de id '. $client->id .' com sucesso', [
+            	'client'  => $client,
+            	'extract' => $client->extract
+            ]);
+
+        return $response->withJson($client->extract, 200);
+    }
+
+    public function creditos($request, $response, $args)
+    {
+    	$auth = $request->getAttribute('decoded_token_data');
+
+        try {   	
+        	$client = $this->clientRepository->findOneByFields([
+				'id' 		=> $args['id'],
+				'user_id'   => $auth['id']
+			]);
+
+        } catch (ModelNotFoundException $e) {
+            $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
+
+			return $response->withJson('Cliente não encontrado', 404);
+        }
+
+        $this->logger->info('Carregado créditos do Cliente de id '. $client->id .' com sucesso', [
+            	'client'  => $client,
+            	'credits' => $client->credit
+            ]);
+
+        return $response->withJson($client->credit, 200);
+    }
 }

@@ -23,7 +23,7 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
 
 
 $app->add(new \Tuupola\Middleware\JwtAuthentication([
-    "path" => ["/clients"], /* or ["/api", "/admin"] */
+    "path" => ["/clients", "/recarregar", "/remover", "/estornar"], /* or ["/api", "/admin"] */
     "realm" => "Protected",
     "secure" => false,
     "relaxed" => ["localhost", "http://creditos/#/"],

@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-use App\Repository\RepositoryFactory;
+use App\Models\Credit;
+use App\Models\Extract;
 use App\Models\User;
-use App\Models\Client;
+use App\Repository\ClientRepository;
+use App\Repository\RepositoryFactory;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class DBProvider implements ProviderInterface
 {
@@ -27,8 +29,17 @@ class DBProvider implements ProviderInterface
 		};
 
 		$container['clientRepository'] = function ($container) {
+			return new ClientRepository();
+		};
+
+		$container['creditRepository'] = function ($container) {
 			$repository = new RepositoryFactory();
-			return $repository->factory(Client::class);
+			return $repository->factory(Credit::class);
+		};
+
+		$container['extractRepository'] = function ($container) {
+			$repository = new RepositoryFactory();
+			return $repository->factory(Extract::class);
 		};
 	}
 }
