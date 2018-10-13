@@ -37,7 +37,7 @@ class AuthController extends Controller
 
 		$this->logger->info("Token gerado com sucesso");
 
-		return $response->withJson(['token' => $token], 201)
+		return $response->withJson($token, 201)
 					->withHeader('Content-type', 'application/json');
 	}
 }
