@@ -23,4 +23,9 @@ $app->post('/remover/{id}', 'App\Controllers\CreditsController:remover');
 
 $app->post('/estornar/{id}', 'App\Controllers\CreditsController:estornar');
 
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+    $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+    return $handler($req, $res);
+});
+
 

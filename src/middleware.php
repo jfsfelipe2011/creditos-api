@@ -7,7 +7,7 @@
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
     return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
@@ -29,7 +29,6 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
             ->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     }
 ]));
-
 
 $app->add(new \Tuupola\Middleware\JwtAuthentication([
     "path" => ["/clients", "/recarregar", "/remover", "/estornar"], /* or ["/api", "/admin"] */
