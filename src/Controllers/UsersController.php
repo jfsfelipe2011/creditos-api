@@ -37,7 +37,7 @@ class UsersController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao criar usuário', 400);
+			return $response->withJson(['user' => ['insert' => 'Erro ao criar usuário']], 400);
 		} 
 
 		$this->logger->info('Usuário criado com sucesso', [
@@ -69,11 +69,11 @@ class UsersController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao editar usuário', 400);
+			return $response->withJson(['user' => ['update' => 'Erro ao editar usuário']], 400);
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Usuário de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Usuário não encontrado', 404);
+			return $response->withJson(['user' => ['update' => 'Usuário não encontrado']], 404);
 		}
 
 		$this->logger->info('Usuário atualizado com sucesso', [
@@ -92,11 +92,11 @@ class UsersController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao excluir usuário', 400);
+			return $response->withJson(['user' => ['delete' => 'Erro ao excluir usuário']], 400);
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Usuário de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Usuário não encontrado', 404);
+			return $response->withJson(['user' => ['delete' => 'Usuário não encontrado']], 404);
 		}
 
 		$this->logger->info('Usuário de id '. $args['id'] .' excluido com sucesso');
@@ -107,11 +107,12 @@ class UsersController extends Controller
 	public function show($request, $response, $args)
 	{
 		try {
-			$user = $this->userRepository->find($args['id']);	
+			$user = $this->userRepository->find($args['id']);
+			unset($user['password']);	
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Usuário de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Usuário não encontrado', 404);
+			return $response->withJson(['user' => ['show' => 'Usuário não encontrado']], 404);
 		}
 
 		$this->logger->info('Usuário de id '. $user->id .' carregado com sucesso', [
