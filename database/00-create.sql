@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `creditos`.`clients` (
   CONSTRAINT `fk_clients_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `creditos`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -71,8 +71,8 @@ CREATE TABLE IF NOT EXISTS `creditos`.`credits` (
   CONSTRAINT `fk_credits_client`
     FOREIGN KEY (`client_id`)
     REFERENCES `creditos`.`clients` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `creditos`.`extracts` (
   CONSTRAINT `fk_extracts_client`
     FOREIGN KEY (`client_id`)
     REFERENCES `creditos`.`clients` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
