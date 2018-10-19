@@ -45,7 +45,7 @@ class ClientsController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao criar cliente', 400);
+			return $response->withJson(['client' => ['insert' => 'Erro ao criar cliente']], 400);
 		} 
 
 		$this->logger->info('Cliente criado com sucesso', [
@@ -81,7 +81,7 @@ class ClientsController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao editar Cliente', 400);
+			return $response->withJson(['client' => ['update' => 'Erro ao editar Cliente']], 400);
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
@@ -109,7 +109,7 @@ class ClientsController extends Controller
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao excluir Cliente', 400);
+			return $response->withJson(['client' => ['delete' => 'Erro ao excluir Cliente']], 400);
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
@@ -133,7 +133,7 @@ class ClientsController extends Controller
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['client' => ['show' => 'Cliente não encontrado']], 404);
 		}
 
 		$this->logger->info('Cliente de id '. $client->id .' carregado com sucesso', [
