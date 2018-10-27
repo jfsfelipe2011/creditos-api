@@ -155,7 +155,7 @@ class ClientsController extends Controller
         } catch (ModelNotFoundException $e) {
             $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['client' => ['saldo' => 'Cliente não encontrado']], 404);
         }
 
         $this->logger->info('Carregado saldo do Cliente de id '. $client->id .' com sucesso', [
@@ -179,7 +179,7 @@ class ClientsController extends Controller
         } catch (ModelNotFoundException $e) {
             $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['client' => ['extrato' => 'Cliente não encontrado']], 404);
         }
 
         $this->logger->info('Carregado extrato do Cliente de id '. $client->id .' com sucesso', [
@@ -203,7 +203,7 @@ class ClientsController extends Controller
         } catch (ModelNotFoundException $e) {
             $this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['client' => ['creditos' => 'Cliente não encontrado']], 404);
         }
 
         $this->logger->info('Carregado créditos do Cliente de id '. $client->id .' com sucesso', [

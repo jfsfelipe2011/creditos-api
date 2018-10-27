@@ -55,19 +55,19 @@ class CreditsController extends Controller
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['credits' => ['recarregar' => 'Cliente não encontrado']], 404);
 		} catch (QueryException $e) {
 			$this->errorLogger->error('Erro ao efetuar recarga para o cliente ' . $args['id'], [
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao efetuar recarga', 400);
+			return $response->withJson(['credits' => ['recarregar' => 'Erro ao efetuar recarga']], 400);
 		} catch (Exception $e) {
 			$this->errorLogger->error('Erro ao gravar extrato para o cliente ' . $args['id'], [
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao efetuar recarga', 400);
+			return $response->withJson(['credits' => ['recarregar' => 'Erro ao efetuar recarga']], 400);
 		}
 	}
 
@@ -119,13 +119,13 @@ class CreditsController extends Controller
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['credits' => ['remover' => 'Cliente não encontrado']], 404);
 		} catch (Exception $e) {
 			$this->errorLogger->error('Erro ao remover créditos para o cliente ' . $args['id'], [
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao remover creditos', 400);
+			return $response->withJson(['credits' => ['recarregar' => 'Erro ao remover créditos']], 400);
 		}
 	}
 
@@ -175,13 +175,13 @@ class CreditsController extends Controller
 		} catch (ModelNotFoundException $e) {
 			$this->errorLogger->error('Cliente de id ' . $args['id'] . ' não encontrado na base de dados');
 
-			return $response->withJson('Cliente não encontrado', 404);
+			return $response->withJson(['credits' => ['remover' => 'Cliente não encontrado']], 404);
 		} catch (Exception $e) {
 			$this->errorLogger->error('Erro ao estornar créditos para o cliente ' . $args['id'], [
 				'erros' => $e->getMessage()
 			]);
 
-			return $response->withJson('Erro ao estornar creditos', 400);
+			return $response->withJson(['credits' => ['recarregar' => 'Erro ao estornar créditos']], 400);
 		}
 	}
 }
